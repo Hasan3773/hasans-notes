@@ -1,7 +1,7 @@
 
 Supposedly Categories of ML:
 - [[Reinforcement Learning]]
-- Unsupervised Learning
+- [[Unsupervised Learning]]
 - [[Supervised Learning]]
 
 
