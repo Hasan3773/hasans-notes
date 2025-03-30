@@ -44,7 +44,7 @@ Polymorphism: Having multiple types for a single type.
 
 Operator Overloading:  Allows you to use +, -, > etc.. with user defined types like classes and structs. This is done by putting what kinda looks like another constructor, ex (class operator+(const class& other)) or like making a class act like an array. 
 
-Function Overloading: When you have multiple function declarations in your class and depending on the params fed to the object, it calls a different function. Method overloading is the same thing but within the scope of the same class? 
+Function Overloading: When you have multiple function declarations in your class and depending on the params fed to the object, it calls a different function. 
 
 namespaces: A way to group related identifiers (variables, functions, classes, objects) together to apparently avoid conflicts where the same function is defined multiple times. To use functions in a name space you have to use the scop resolution operator (::) or use the using keyword namespace in your file.
 
@@ -132,6 +132,77 @@ Questions:
 13. What is the difference between a class and namespace?
 
 ```
+#include <map>
+class StockPrice {
+private:
+    unordered_map<int, int> stock; // timestamp, price
+    multiset<int> prices;
+    int max_time = 0;
+public:
+    StockPrice() { }
+    void update(int timestamp, int price) {
+        if (stock.count(timestamp)){
+            auto it = prices.find(stock[timestamp]);
+            prices.erase(it);
+        }
+        stock[timestamp] = price;
+        prices.insert(price);
+        max_time = max(max_time, timestamp);
+    }
+    int current() {
+        return stock[max_time];
+    }
+    int maximum() {
+        if (stock.empty())
+            return 0;
+        return *prices.rbegin();
+    }
+    int minimum() {
+        if (stock.empty())
+            return 0;
+        return *prices.begin();
+    }
+};
+```
+
+```
+class UndergroundSystem {
+private:
+    map<int, pair<string, int>> infomap; //id, station, time
+    map<string, pair<int, int>> timemap; // (station1,station2), time taken, # trips
+public:
+    UndergroundSystem() {
+    }
+    void checkIn(int id, string stationName, int t) {
+        if (infomap.count(id) > 0) {
+        }
+        else {
+            infomap[id] = make_pair(stationName, t);
+        }
+    }
+    void checkOut(int id, string stationName, int t) {
+        auto info = infomap[id];
+        infomap.erase(id);
+        string path = info.first + ',' + stationName;
+        int time = t - info.second;
+        if (timemap.count(path) > 0){
+            timemap[path].first += time;
+            timemap[path].second++;
+        }
+        else{
+            timemap[path] = make_pair(time, 1);
+        }
+    }
+
+    double getAverageTime(string startStation, string endStation) {
+        string path = startStation + ',' + endStation;
+        auto timeinfo = timemap[path];
+        return (double) timeinfo.first / timeinfo.second;
+    }
+};
+```
+
+```
 #include <iostream>
 #include <string>
 
@@ -141,22 +212,22 @@ private:
     std::string breed;
 
 public:
-    virtual void foo(int a, int b) = 0;  // ✅ Pure virtual function
+    virtual void foo(int a, int b) = 0;  //  Pure virtual function
 };
 
-class Dog : public Animal {  // ✅ Correct inheritance
+class Dog : public Animal {  // Correct inheritance
 public:
-    void foo(int a, int b) override {  // ✅ Correct override
+    void foo(int a, int b) override {  // Correct override
         std::cout << "Dog's foo method called!" << std::endl;
     }
 };
 
 int main() {
-    Dog dog1;  // ✅ Correct object instantiation
-    dog1.foo(1, 2);  // ✅ Calls `Dog::foo`
+    Dog dog1;  // Correct object instantiation
+    dog1.foo(1, 2);  // Calls `Dog::foo`
 
-    Animal* animal1 = &dog1;  // ✅ Pointer to `Dog`
-    animal1->foo(1, 2);  // ✅ Calls overridden `Dog::foo` (Dynamic Binding)
+    Animal* animal1 = &dog1;  // Pointer to `Dog`
+    animal1->foo(1, 2);  // Calls overridden `Dog::foo` (Dynamic Binding)
 
     return 0;
 }
