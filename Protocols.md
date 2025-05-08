@@ -51,3 +51,16 @@ The reason that I2C needs the pull up resistors rather than just letting all the
 
 The start condition: 
 ![](https://lh7-rt.googleusercontent.com/docsz/AD_4nXdtq4jgvxUedl0w6UQVyJ44Im__8b0-KOUR2nZQbERoxTLidlfgC2OKsrsnyO2b-Oe7Q66KtOxu6wmBoH32ZOiAS02VZdh6ADhSWdgOiL_aPIkJMyhcn2i-oSLz06aneA_uI5IP0jvGHCXpMzW6j9yRg-6j?key=96Zz1iNouwiYhGNilCw3Ng)
+
+EtherCAT (Ethernet for Controls and Automation):
+- Like Ethernet but the signal doesn't stop, as the packet from the master goes through each slave, they add their information to the end of it. So at the end the master recieves back its packet with the information from each of the slaves appended to it. 
+- It is deterministic so very good for robotics
+
+Ethernet
+- The most common way of sending digital data over wired local networks (non deterministic)
+- Each frame includes: 
+	- Destination MAC address
+	- Source MAC address
+	- Type of data
+	- The data itself
+	- CRC

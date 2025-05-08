@@ -4,4 +4,13 @@ TDMPC2:
 
 PPO (proximal policy optimization): 
 - Take steps based on the gradient but dont want to destroy the paramters
--  
+
+
+On Policy RL:
+- Agent can pick actions
+- Agent always follows policy
+
+Off Policy RL:
+- Agent doesnt pick actions
+- learn from expert
+- learn from buffer

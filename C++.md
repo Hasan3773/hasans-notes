@@ -131,7 +131,7 @@ Questions:
 12. What is structured programming?
 13. What is the difference between a class and namespace?
 
-```
+```C++
 #include <map>
 class StockPrice {
 private:
@@ -165,7 +165,7 @@ public:
 };
 ```
 
-```
+```C++
 class UndergroundSystem {
 private:
     map<int, pair<string, int>> infomap; //id, station, time
@@ -202,7 +202,7 @@ public:
 };
 ```
 
-```
+```C++
 #include <iostream>
 #include <string>
 
@@ -233,7 +233,7 @@ int main() {
 }
 ```
 
-```
+```C++
 #include <iostream>
 #include <string>
 
