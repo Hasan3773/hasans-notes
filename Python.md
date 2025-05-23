@@ -54,6 +54,21 @@ class Solution(object):
         return result
 ```
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Incorrect: 
 ```Python
        sorted_nums = sorted(nums)
         print(sorted_nums)
@@ -78,3 +93,15 @@ class Solution(object):
         return len(answer)
 ```
 
+```Python 
+	def longestConsecutive(self, nums):
+       max_count = 0
+        for num in nums:
+            current_num = num
+            current_count = 1
+            while(current_num + 1 in nums):
+                current_count += 1
+                current_num += 1
+            max_count = max(current_count, max_count)
+        return max_count
+```
