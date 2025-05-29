@@ -53,4 +53,4 @@ Printf:
 - %c print as character
 - %s print as string
 
-Increment Operators: 
+Increment Operators:       
