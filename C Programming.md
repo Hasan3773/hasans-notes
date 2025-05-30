@@ -35,7 +35,7 @@ Compilation steps in C: Process of turning user code to machine code
 - Compiling (Expanded source code): Converts from the intermediate file to Assembly files, this is where any errors or warnings are found and shown in the terminal
 - Assembling (assembly code -> Object code): Assembly is then converted to binary using an assembler, this new binary file is called a object file
 - Linking (Executable file): Last step is including “the library files” that contains the definitions of the function for the machine language, then generates an exe or out file to run.
-
+--
 Data Types:
 - int: 16-bit signed number
 - long: 
