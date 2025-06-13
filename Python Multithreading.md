@@ -1,3 +1,17 @@
+When multithreading, each thread has its own stack memory but the heap is shared. The function results from the call stack of each thread are stored on the heap so that the other threads can operate asynchronously.
+
+Multithreading - The use of multiple threads in a single process. 
+
+Thread -  A basic unit of execution in a process. 
+
+Process - Series of actions done to execute a program.
+
+Benefits: Increased responsiveness, Resource sharing, Utilization of multiprocessor architecture (a single thread process can only use a single CPU but a multi-thread process can utilize multiple processors)
+
+![](https://lh7-rt.googleusercontent.com/docsz/AD_4nXeH-LvrohxI02FtxLDbMRq49yBE_qnpepl2aDHBMj-awz5FBTZ2GSznTSSKly4VpKM3uXnawYUmOFFtRTgCXLc2f4BtNSq1Vns59jTgTdpQaVxWZN6eyDwqO2AbkFHBTPfwAQX6kmgr7VJx29M6F5FPwDQ?key=96Zz1iNouwiYhGNilCw3Ng)
+
+Difference between Multi-threading & Multi-processing: By formal definition, multithreading refers to the ability of a processor to execute multiple threads concurrently, where each thread runs a process. Whereas multiprocessing refers to the ability of a system to run multiple processors in parallel, where each processor can run one or more threads.
+
 Functions:
 - .is_alive() - returns whether the thread is still running
 - .join() - delays execution of a program until target thread has been "read"?

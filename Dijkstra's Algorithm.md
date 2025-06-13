@@ -1,4 +1,4 @@
-Dijkstra's Algorithm: An algorithm to find the shortest path from a node to all other nodes in a weighted graph. 
+Dijkstra's Algorithm: An algorithm to find the shortest path from a node to all other nodes in a **weighted graph**, use bfs if unweighted. 
 - Initialize distances - set the source node distance to 0 and all other nodes to inf
 - Use a priority queue / min-heap to extract the node with the smallest "tentative dist"
 - After you extract the node, update all the neighbors (calculate new dist) if the new dist is smaller than "stored" update the value?

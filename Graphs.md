@@ -15,4 +15,7 @@ Implementation: Can either be done with a Adjacency Matrix or Adjacency List. Fo
 
 
 
-
+Types of search algorithms:
+- Breadth First Search
+- Depth First Search
+- 

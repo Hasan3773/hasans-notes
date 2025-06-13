@@ -267,3 +267,155 @@ int main() {
 }
 ```
 
+``` C++
+class LRUCache {
+private:
+    unordered_map<int,int> LRU;
+    vector<int> oldest;
+    int maximum;
+public:
+    LRUCache(int capacity) {
+        maximum = capacity;
+    }
+    int get(int key) {
+        if (LRU.find(key) != LRU.end()){
+            oldest.erase(find(oldest.begin(), oldest.end(), key));
+            oldest.push_back(key);
+            cout << "got: " << key << endl;
+            return LRU[key];
+        }
+        return -1;
+    }
+    void put(int key, int value) {
+        if (LRU.find(key) != LRU.end()){
+            LRU[key] = value;
+            oldest.erase(find(oldest.begin(), oldest.end(), key));
+            oldest.push_back(key);
+            cout << "first inserted:" << key << endl;
+        }
+        else if (LRU.size() < maximum){
+            LRU[key] = value;
+            oldest.push_back(key);
+            cout << "second inserted:" << key << endl;
+        }
+        else{
+            int delKey = *oldest.begin();
+            oldest.erase(oldest.begin());
+            LRU.erase(delKey);
+            LRU[key] = value;
+            oldest.push_back(key);
+            cout << "third inserted:" << key << " deleted:" << delKey << endl;
+        }
+    }
+};```
+
+```C++
+#include <unordered_map>
+struct Node {
+    int key;
+    int val;
+    Node *next;
+    Node *prev;
+    Node(int key, int val) : key(key), val(val), next(nullptr), prev(nullptr) {} // constructor inializer list
+};
+class LRUCache {
+private:
+    unordered_map<int,Node*> LRU;
+    int maximum;
+    Node* head = new Node(-1, -1);
+    Node* tail = new Node(-1, -1);  
+public:
+    LRUCache(int capacity) {
+        maximum = capacity;
+        // head and tail in a linked list are their own nodes not just pointers lol
+        head->next = tail;
+        tail->prev = head;
+    }
+    void remove(Node* node){
+        node->prev->next = node->next;
+        node->next->prev = node->prev;
+        node->prev = nullptr;
+        node->next = nullptr;
+    }
+    void add(Node* node){
+        tail->prev->next = node;
+        node->prev = tail->prev;
+        node->next = tail;
+        tail->prev = node;
+    }
+    int get(int key) {
+        if (LRU.find(key) != LRU.end()){
+            Node *node = LRU[key]; 
+            Node* curr = head;
+            remove(node);
+            add(node);
+            cout << "got: " << key << endl;
+            return node->val;
+        }
+        return -1;
+    }
+    void put(int key, int value) {
+        // key in the lru but updating value
+        if (LRU.find(key) != LRU.end()){
+            Node* curr = LRU[key];
+            curr->val = value;
+            remove(curr);
+            add(curr);
+            cout << "first inserted:" << key << endl;
+        }
+        // key not in the lru and there is space
+        else if (LRU.size() < maximum){
+            Node* curr = new Node(key,value);
+            add(curr);
+            LRU[key] = curr;
+            cout << "second inserted:" << key << endl;
+        }
+        // lru full so we must delete node and insert new one
+        else{
+            Node* dead = head->next;
+            int deadKey = dead->key;
+            remove(dead);
+            LRU.erase(deadKey);
+            Node* curr = new Node(key,value);
+            add(curr);
+            LRU[key] = curr;
+            cout << "third inserted:" << key << " deleted:" << deadKey << endl;
+        }
+    }
+};
+```
+
+```C++
+class Solution {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        // sort array [1,2,3,4,5]
+        sort(nums.begin(), nums.end());
+        vector<vector<int>> ret;
+        // loop for every index in the array
+        for (int i = 0; i < nums.size(); i++) {
+            if (i > 0 && nums[i] == nums[i - 1]) {continue;}
+            int start = i + 1;
+            int end = nums.size() - 1;
+            //[1,2,3,4,5]
+            // | ^     ^ fix i and then two pointers for the rest of the array
+            while (start < end) {
+                int lhs = nums[i] + nums[start] + nums[end];
+                if (lhs == 0) {
+                    ret.push_back({nums[i], nums[start], nums[end]});
+                    start++;
+                    end--;
+                    // skip dupilicates
+                    while (start < end && nums[start] == nums[start - 1]) { start++; }
+                    while (start < end && nums[end] == nums[end + 1]) { end--; }
+                } else if (lhs < 0) {
+                    start++;
+                } else {
+                    end--;
+                }
+            }
+        }
+        return ret;
+    }
+};
+```
